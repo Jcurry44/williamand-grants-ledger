@@ -437,6 +437,9 @@ h1 {
 .penny b.k { color: var(--ink); }
 .penny-grid.dim .penny:not(.hot) { opacity: 0.18; }
 .penny-grid.dim .penny.hot { transform: scale(1.1); }
+/* the coin grid is a hover instrument; on touch screens and small phones the
+   category rows carry the same figures, so the coins step aside */
+@media (hover: none), (max-width: 640px) { .penny-grid { display: none; } .dollar-viz { grid-template-columns: 1fr; margin-top: 0.5rem; } }
 .cat-rows { display: flex; flex-direction: column; }
 .cat-row {
   appearance: none; background: none; border: 0; font: inherit; cursor: pointer;

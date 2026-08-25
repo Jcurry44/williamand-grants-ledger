@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="canonical" href="https://jcurry44.github.io/williamand-grants-ledger/">
 <meta name="robots" content="noindex, nofollow">
 <title>The William and Diane Hein Foundation — Grants Ledger · 990-PF</title>
 <meta name="description" content="Every grant The William and Diane Hein Foundation reported in its Form 990-PF grants-paid schedule, 2021–2025 — 337 grants, $3,078,962, reconciling to Part I line 25(d) to the dollar. An independent presentation built from public IRS filings.">
@@ -1457,8 +1456,12 @@ select {
           itself — first the filed purpose, then (only when the purpose names no field) the
           recipient’s filed name. Every rule is published below; anything no rule matches is left
           unassigned rather than guessed. The filed purpose text on every ledger row remains the record.
+          On this page there is a third step: when the filed purpose names no field and the recipient’s name matches no published rule, the recipient’s own classification in the IRS Business Master File (its NTEE code) is used — accepted only when the filing’s own recipient state pins the name to exactly one organization, when the name is nationally unique, when every same-named listing carries one classification, or when all listings are chapters of a single group exemption. Names with conflicting listings stay unassigned, as do IRS groups with no honest home in these categories.
         </p>
         <div id="cat-map"></div>
+        <h4 style="margin:1.1rem 0 0.3rem; font-size:0.95rem;">Step 3 — the recipient’s IRS classification</h4>
+        <p style="font-size:0.9rem;">19 recipients are grouped this way on this page. The crosswalk from the IRS’s major groups to these categories, in full:</p>
+        <div class="tw" style="overflow-x:auto;"><table class="grant-table" style="font-size:0.85rem;"><thead><tr><th>IRS major group (NTEE)</th><th>Category here</th></tr></thead><tbody><tr><td class="cm-kw">A — Arts</td><td class="cm-cat">Arts & culture</td></tr><tr><td class="cm-kw">B — Education</td><td class="cm-cat">Education & youth</td></tr><tr><td class="cm-kw">C, D — Environment, animals</td><td class="cm-cat">Environment & animals</td></tr><tr><td class="cm-kw">E–H, N — Health, mental health, disease, research, recreation</td><td class="cm-cat">Health & wellbeing</td></tr><tr><td class="cm-kw">I, K, L, M, P — Legal aid, food, housing, safety, human services</td><td class="cm-cat">Basic needs & response</td></tr><tr><td class="cm-kw">J, S, W — Employment, community improvement, public benefit</td><td class="cm-cat">Community & economic development</td></tr><tr><td class="cm-kw">O — Youth development</td><td class="cm-cat">Education & youth</td></tr><tr><td class="cm-kw">T — Philanthropy & grantmaking</td><td class="cm-cat">Nonprofit capacity & transitions</td></tr><tr><td class="cm-kw">Q, R, U, V, X, Y, Z — International, civil rights, science, social science, religion, other</td><td class="cm-cat">stay in “other”</td></tr></tbody></table></div>
         <h3>Limitations</h3>
         <p>
           Recipient location is the mailing address on the filing, not a service area. Display casing
@@ -1630,6 +1633,7 @@ window.HEIN_DATA={"meta":{"foundation":"The William and Diane Hein Foundation","
   // filed name. No rule, no guess: the rest stays in "Other filed purposes."
   // The Methodology mapping table renders FROM these arrays — table and classifier
   // cannot drift apart.
+  const NTEE_MAP = {"CHILD EVANGELISM FELLOWSHIP":"Education & youth","CHRISTIAN COUNSELING MINISTRIES":"Health & wellbeing","EIGHT DAYS OF HOPE":"Basic needs & response","FELLOWSHIP OF CHRISTIAN ATHLETES":"Education & youth","GLIDING STARS":"Basic needs & response","LIFE WITHOUT LIMBS":"Basic needs & response","RESOURCE COUNCIL OF WNY":"Education & youth","SET FREE INC":"Basic needs & response","SONRAYS MINISTRIES":"Basic needs & response","VIA - VISUALLY IMPAIRED ADVANCEMENT":"Basic needs & response","VICTORY SPORTS":"Basic needs & response","WESTSIDE MINISTRIES INC":"Basic needs & response","WORLD OF GIRLS AND BOYS LEADERSHIP INC":"Education & youth","COUNTY CORRECTIONS GOSPEL MISSION":"Basic needs & response","CRU":"Health & wellbeing","DADS":"Basic needs & response","SAVING GRACE MINISTRIES INC":"Basic needs & response","WINGS OF COMPASSION":"Basic needs & response","ALS FOUNDATION":"Nonprofit capacity & transitions"};
   const CAT_OTHER = 'Other filed purposes';
   const CAT_SUBJECTS = [
     { key: 'Education & youth',
@@ -1664,6 +1668,7 @@ window.HEIN_DATA={"meta":{"foundation":"The William and Diane Hein Foundation","
       const R = g.r.toUpperCase();
       for (const c of CAT_SUBJECTS) if (c.rx.test(R)) { res = { key: c.key, step: 2 }; break; }
     }
+    if (!res && NTEE_MAP[g.r]) res = { key: NTEE_MAP[g.r], step: 3 };
     g._ci = res || { key: CAT_OTHER, step: 0 };
     return g._ci;
   }
